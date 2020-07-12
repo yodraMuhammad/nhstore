@@ -35,10 +35,59 @@
                             <td><?= $sm['icon'] ?></td>
                             <td><?= $sm['is_active'] ?></td>
                             <td>
-                                <a href="" class="badge badge-success">edit</a>
-                                <a href="" class="badge badge-danger">delete</a>
+                                <a href="" class="btn btn-success btn-sm" data-toggle="modal" data-target="#editSubmenu<?= $sm['id']; ?>">edit</a>
+                                <a href="<?= base_url('index.php/menu/deletesubmenu/') . $sm['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Delete submenu <?= $sm['title'] ?> ?');">delete</a>
                             </td>
                         </tr>
+                        <!-- Modal EDIT DATA -->
+                        <div class="modal fade" id="editSubmenu<?= $sm['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="newSubMenuModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="newSubMenuModal">Edit Submenu</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="<?= base_url('index.php/menu/editsubmenu/') . $sm['id'] ?>" method="POST">
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="tile" name="title" placeholder="Submenu title" value="<?= $sm['title'] ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <select name="menu_id" id="menu_id" class="form-control">
+                                                    <option value="">Select Menu</option>
+                                                    <?php foreach ($menu as $m) : ?>
+                                                        <?php if ($m['menu'] == $sm['MENU']) : ?>
+                                                            <option value="<?= $m['id'] ?>" selected><?= $m['menu']; ?></option>
+                                                        <?php else : ?>
+                                                            <option value="<?= $m['id'] ?>"><?= $m['menu']; ?></option>
+                                                        <?php endif; ?>
+                                                    <?php endforeach;  ?>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="url" name="url" placeholder="URL" value="<?= $sm['url']; ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="icon" name="icon" placeholder="Icon" value="<?= $sm['icon'] ?>"">
+                                            </div>
+                                            <div class=" form-group">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1" name="is_active" id="is_active" checked>
+                                                    <label class="form-check-label" for="is_active">
+                                                        Active
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Edit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                         <?php $i++; ?>
                     <?php endforeach; ?>
                 </tbody>
@@ -92,7 +141,6 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Add</button>
                 </div>
             </form>

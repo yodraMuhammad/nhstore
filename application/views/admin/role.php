@@ -24,9 +24,9 @@
                             <th scope="row"><?= $i ?></th>
                             <td><?= $r['role'] ?></td>
                             <td>
-                                <a href="<?= base_url('index.php/admin/roleAccess/') . $r['id']; ?>" class="badge badge-warning">access</a>
-                                <a href="" class="badge badge-success">edit</a>
-                                <a href="" class="badge badge-danger">delete</a>
+                                <a href="<?= base_url('index.php/admin/roleAccess/') . $r['id']; ?>" class="btn btn-warning btn-sm">access</a>
+                                <a href="" class="btn btn-success btn-sm">edit</a>
+                                <a href="" class="btn btn-danger btn-sm">delete</a>
                             </td>
                         </tr>
                         <?php $i++; ?>

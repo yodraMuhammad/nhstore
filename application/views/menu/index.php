@@ -23,10 +23,33 @@
                             <th scope="row"><?= $i ?></th>
                             <td><?= $m['menu'] ?></td>
                             <td>
-                                <a href="" class="badge badge-success">edit</a>
-                                <a href="" class="badge badge-danger">delete</a>
+                                <a href="" class="btn btn-success btn-sm" data-toggle="modal" data-target="#editModal<?= $m['id']; ?>">edit</a>
+                                <a href="<?= base_url('index.php/menu/deletemenu/') . $m['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Delete menu \'<?= $m['menu']; ?>\' ?');">delete</a>
                             </td>
                         </tr>
+                        <!-- Modal edit-->
+                        <div class="modal fade" id="editModal<?= $m['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModaLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editModalLabel">Edit Menu</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="<?= base_url('index.php/menu/editmenu/') . $m['id'] ?>" method="POST">
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="menu" name="menu" placeholder="Menu name" value="<?= $m['menu'] ?>">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Update</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                         <?php $i++; ?>
                     <?php endforeach; ?>
                 </tbody>
@@ -58,7 +81,6 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Add</button>
                 </div>
             </form>
